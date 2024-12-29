@@ -3,11 +3,15 @@ from phi.tools.yfinance import YFinanceTools
 from phi.model.groq import Groq as groq
 from phi.tools.duckduckgo import DuckDuckGo
 import openai
+from dotenv import load_dotenv
 
 import os
-from dotenv import load_dotenv
+import phi
+from phi.playground import Playground, serve_playground_app
+# Load environment variables from .env file
 load_dotenv()
-# openai.api_key=os.getenv("OPENAI_API_KEY")
+
+phi.api=os.getenv("PHI_API_KEY")
 
 
 class PromptValidator:
@@ -52,7 +56,7 @@ finance_agent = Agent(tools=[YFinanceTools(stock_price=True , stock_fundamentals
 
 
 prompt_list = ["stock price", "analyst recommendations", "stock fundamentals"]
-prompt = input("Enter your prompt: ")
+#prompt = input("Enter your prompt: ")
 
 
 
@@ -65,5 +69,9 @@ multi_agent = Agent(
     markdown=True
 )
 
-multi_agent.print_response(prompt)
+# multi_agent.print_response(prompt)
 
+app=Playground(agents=[multi_agent]).get_app()
+
+if __name__=="__main__":
+    serve_playground_app("L-1:app",reload=True)
