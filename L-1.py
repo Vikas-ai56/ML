@@ -56,7 +56,7 @@ finance_agent = Agent(tools=[YFinanceTools(stock_price=True , stock_fundamentals
 
 
 prompt_list = ["stock price", "analyst recommendations", "stock fundamentals"]
-#prompt = input("Enter your prompt: ")
+prompt = input("Enter your prompt: ")
 
 
 
@@ -70,5 +70,15 @@ multi_agent = Agent(
     markdown=True
 )
 
-multi_agent.print_response("Generate detailedanalyst recommendations for AAPL with sources")
+collector = []
+
+# Adding a feedback option
+def get_response_with_feedback(agent, prompt):
+    response = agent.print_response(prompt)
+    feedback = input("Was the response helpful? (yes/no): ")
+    collector.append((response, feedback))
+    return response
+
+print(get_response_with_feedback(multi_agent, prompt))
+
 
