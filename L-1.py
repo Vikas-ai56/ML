@@ -10,7 +10,7 @@ import phi
 from phi.playground import Playground, serve_playground_app
 # Load environment variables from .env file
 load_dotenv()
-
+openai.api_key=os.getenv("OPENAI_API_KEY")
 phi.api=os.getenv("PHI_API_KEY")
 
 
@@ -38,7 +38,7 @@ class myModel:
     
 
 web_search_agent = Agent(tools=[DuckDuckGo()],
-                            model = groq(id = "llama3-groq-70b-8192-tool-use-preview"),
+                            model = groq(id = "llama-3.1-70b-versatile"),
                             # `description` Tells us about the agent's function
                             description="You Surf through the web for info",       
                             instructions=["Always Include reference sources "],
@@ -47,7 +47,7 @@ web_search_agent = Agent(tools=[DuckDuckGo()],
                             )
         
 finance_agent = Agent(tools=[YFinanceTools(stock_price=True , stock_fundamentals=True , analyst_recommendations=True)],
-                            model = groq(id = "llama3-groq-70b-8192-tool-use-preview"),
+                            model = groq(id = "llama-3.1-70b-versatile"),
                             description="You are an investment analyst that researches stock prices, analyst recommendations, and stock fundamentals.",       
                             instructions=["Format your response using markdown and use tables to display data where possible."],
                             show_tool_calls=True,
@@ -62,6 +62,7 @@ prompt_list = ["stock price", "analyst recommendations", "stock fundamentals"]
 
 
 multi_agent = Agent(
+    model = groq(id = "llama-3.1-70b-versatile"),
     team=[web_search_agent, finance_agent],
     description="You are a multi-agent that can access both the web and financial data.",
     instructions=["Format your response using markdown and use tables to display data where possible."],
@@ -69,9 +70,5 @@ multi_agent = Agent(
     markdown=True
 )
 
-# multi_agent.print_response(prompt)
+multi_agent.print_response("Generate detailedanalyst recommendations for AAPL with sources")
 
-app=Playground(agents=[multi_agent]).get_app()
-
-if __name__=="__main__":
-    serve_playground_app("L-1:app",reload=True)
