@@ -1,3 +1,6 @@
+# Line 81 add a nlp processor to analyze the emotion in the given user feedback
+
+import transformers as tr
 from phi.agent import Agent
 from phi.tools.yfinance import YFinanceTools
 from phi.model.groq import Groq as groq
@@ -43,7 +46,10 @@ web_search_agent = Agent(tools=[DuckDuckGo()],
                             description="You Surf through the web for info",       
                             instructions=["Always Include reference sources "],
                             show_tool_calls=True,
-                            markdown= True
+                            markdown= True,
+                            read_chat_history=True,
+#                            reasoning=True,
+                            structured_outputs=True
                             )
         
 finance_agent = Agent(tools=[YFinanceTools(stock_price=True , stock_fundamentals=True , analyst_recommendations=True)],
@@ -51,7 +57,10 @@ finance_agent = Agent(tools=[YFinanceTools(stock_price=True , stock_fundamentals
                             description="You are an investment analyst that researches stock prices, analyst recommendations, and stock fundamentals.",       
                             instructions=["Format your response using markdown and use tables to display data where possible."],
                             show_tool_calls=True,
-                            markdown= True
+                            markdown= True,
+                            read_chat_history=True,
+#                            reasoning=True,
+                            structured_outputs=True
                             )
 
 
@@ -67,7 +76,8 @@ multi_agent = Agent(
     description="You are a multi-agent that can access both the web and financial data.",
     instructions=["Format your response using markdown and use tables to display data where possible."],
     show_tool_calls=True,
-    markdown=True
+    markdown=True,
+    read_chat_history=True
 )
 
 collector = []
@@ -75,10 +85,10 @@ collector = []
 # Adding a feedback option
 def get_response_with_feedback(agent, prompt):
     response = agent.print_response(prompt)
-    feedback = input("Was the response helpful? (yes/no): ")
+    feedback = input("Was the response helpful? (yes/no): ")  
     collector.append((response, feedback))
     return response
 
-print(get_response_with_feedback(multi_agent, prompt))
+get_response_with_feedback(multi_agent, prompt)
 
 
