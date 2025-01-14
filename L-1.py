@@ -1,6 +1,4 @@
 # Line 81 add a nlp processor to analyze the emotion in the given user feedback
-
-import transformers as tr
 from phi.agent import Agent
 from phi.tools.yfinance import YFinanceTools
 from phi.model.groq import Groq as groq
