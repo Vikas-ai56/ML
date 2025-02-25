@@ -6,13 +6,13 @@ This module implements a workflow to crawl, analyze, and extract section content
 
 - **Web Crawling:**  
   Crawls a specified URL to retrieve HTML and JSON data via the Firecrawl API.  
-  See the [`crawlWebsite`](BrowserUse/node_logic.py#L25) function in [`BrowserUse/node_logic.py`](BrowserUse/node_logic.py).
+  See the [`crawlWebsite`](https://github.com/Vikas-ai56/ML/blob/main/BrowserUse/node_logic.py#L25) function in [`BrowserUse/node_logic.py`](https://github.com/Vikas-ai56/ML/blob/main/BrowserUseAI/node_logic.py).
 
 - **Content Analysis:**  
   Processes the retrieved webpage content, extracts key learnings, and structures it into sections.
 
 - **Graph Workflow:**  
-  Uses a multi-step pipeline built with LangGraph. The workflow is defined in [`BrowserUse/browser_use.py`](BrowserUse/browser_use.py#L11).
+  Uses a multi-step pipeline built with LangGraph. The workflow is defined in [`BrowserUse/browser_use.py`](https://github.com/Vikas-ai56/ML/blob/main/BrowserUse/browser_use.py#L11).
 
 ## Folder Structure
 ```
