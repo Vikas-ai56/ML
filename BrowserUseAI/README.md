@@ -15,11 +15,12 @@ This module implements a workflow to crawl, analyze, and extract section content
   Uses a multi-step pipeline built with LangGraph. The workflow is defined in [`BrowserUse/browser_use.py`](BrowserUse/browser_use.py#L11).
 
 ## Folder Structure
+```
 BrowserUse/ 
     ├── browser_use.py # Initializes and runs the LangGraph workflow. 
     ├── node_logic.py # Contains functions for crawling, analyzing, and processing website content. 
     └── .gitignore
-
+```
 
 ## Setup
 
