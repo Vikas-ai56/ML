@@ -214,6 +214,24 @@ def create_section_content(state: GraphState) -> GraphState:
 # Concise summary of each learning point extracted from the sections
 
 def create_learning_section(state : GraphState) -> GraphState:
+    """
+    Generates summaries for key learnings based on the provided section content schema in the state.
+    Args:
+        state (GraphState): The current state containing section content and key learnings.
+    Returns:
+        GraphState: The updated state with generated learning summaries.
+    The function performs the following steps:
+    1. Retrieves the section content schema and key learnings from the state.
+    2. Checks if the section content schema or key learnings are missing and returns the state if so.
+    3. Initializes a language model (ChatOpenAI) for generating summaries.
+    4. Iterates over each key learning and combines all section texts.
+    5. Creates a prompt for the language model to summarize the combined section text focusing on the key learning.
+    6. Invokes the language model to generate the summary and appends it to the learning summaries.
+    7. Updates the section content schema in the state with the generated learning summaries.
+    Raises:
+        Exception: If an error occurs during the summarization process, it prints an error message.
+    """
+    
     section_content_schema = state.get("section_content")
     key_learnings = state.get("key_learnings")
 
